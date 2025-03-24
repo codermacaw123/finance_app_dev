@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Incomes</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body class="body-main2">
+    <img src="images/logo.png" alt="logo" class="logo" width="100" height="100" id="logo">
+    <ul>
+        <li class="homepagetopbuttons"><a href="aboutyou.html">Home</a></li>
+
+        <li class="homepagetopbuttons"><a href="contactus.html">Contact Us</a></li>
+        <li class="homepagetopbuttons"><a href="index.html" id="Logout_button">Logout</a></li>
+    </ul>
+    <script type="module">
+        // Import Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getDatabase, ref, set, update } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+        // Your Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDhfz_tIitJp9zRdACBb1rEGhQDUoYxNP4",
+            authDomain: "finance-app-16a81.firebaseapp.com",
+            databaseURL: "https://finance-app-16a81-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "finance-app-16a81",
+            storageBucket: "finance-app-16a81.firebasestorage.app",
+            messagingSenderId: "227865531925",
+            appId: "1:227865531925:web:7d607245b81fd76be1601c"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+        const googlebutton = document.getElementById("google_login_button");
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const uid = user.uid;
+                console.log("User UID:", uid);
+
+                document.getElementById("Logout_button").addEventListener("click", () => {
+                    signOut(auth).then(() => {
+                        alert("You have been logged out!");
+                        window.location.href = "index.html";
+                    }).catch((error) => {
+                        alert("An error occurred while logging out!");
+                        alert(error.message);
+                    });
+                });
+
+                document.getElementById("submit_button_recurring").addEventListener("click", () => {
+                    var recurring_incomes_title = document.getElementById("recurring_incomes_title").value;
+                    var recurring_incomes_amount = document.getElementById("recurring_incomes_amount").value;
+                    var recurring_incomes_date = document.getElementById("recurring_incomes_date").value;
+
+                    if (!recurring_incomes_title || !recurring_incomes_amount || !recurring_incomes_date) {
+                        alert("Please enter both title and amount as well as date paid");
+                        return;
+                    }
+                    const db = getDatabase(app);
+                    let updateData = {};
+                    updateData[recurring_incomes_title] = {
+                        amount: recurring_incomes_amount,
+                        date: recurring_incomes_date
+                    };
+                    update(ref(db, 'users/' + uid + '/recurring_incomes'), updateData)
+                        .then(() => {
+                            alert("You have put your incomes in successfully");
+                            console.log(updateData);
+                        })
+                        .catch((error) => {
+                            alert(error.message);
+                        });
+                });
+
+                document.getElementById("submit_button_major").addEventListener("click", () => {
+                    var major_incomes_title = document.getElementById("major_incomes_title").value;
+                    var major_incomes_amount = document.getElementById("major_incomes_amount").value;
+                    var major_incomes_date = document.getElementById("major_incomes_date").value;
+
+                    if (!major_incomes_title || !major_incomes_amount || !major_incomes_date) {
+                        alert("Please enter both title and amount as well as date paid");
+                        return;
+                    }
+                    const db = getDatabase(app);
+                    let updateData = {};
+                    updateData[major_incomes_title] = {
+                        amount: major_incomes_amount,
+                        date: major_incomes_date
+                    };
+                    update(ref(db, 'users/' + uid + '/major_incomes'), updateData)
+                        .then(() => {
+                            alert("You have put your incomes in successfully");
+                            console.log(updateData);
+                        })
+                        .catch((error) => {
+                            alert(error.message);
+                        });
+                });
+
+                document.getElementById("submit_button_minor").addEventListener("click", () => {
+                    var minor_incomes_title = document.getElementById("minor_incomes_title").value;
+                    var minor_incomes_amount = document.getElementById("minor_incomes_amount").value;
+                    var minor_incomes_date = document.getElementById("minor_incomes_date").value;
+
+                    if (!minor_incomes_title || !minor_incomes_amount || !minor_incomes_date) {
+                        alert("Please enter both title and amount as well as date paid");
+                        return;
+                    }
+                    const db = getDatabase(app);
+                    let updateData = {};
+                    updateData[minor_incomes_title] = {
+                        amount: minor_incomes_amount,
+                        date: minor_incomes_date
+                    };
+                    update(ref(db, 'users/' + uid + '/minor_incomes'), updateData)
+                        .then(() => {
+                            alert("You have put your incomes in successfully");
+                            console.log(updateData);
+                        })
+                        .catch((error) => {
+                            alert(error.message);
+                        });
+                });
+            } else {
+                console.log("No user is signed in.");
+            }
+        });
+    </script>
+    <center>
+        <h1>Incomes</h1>
+        
+        <h2>Recurring incomes</h2>
+        <input type="text" class="input" id="recurring_incomes_title" placeholder=" recurring income title" required><br>
+        <input type="text" class="input" id="recurring_incomes_amount" placeholder="Enter recurring income amount" required><br>
+        <input type="date" class="input" id="recurring_incomes_date" placeholder="Enter recurring income date due" required><br>
+        <button id="submit_button_recurring" class="signup_button1">Submit</button>
+ 
+        
+        <h2>Major Incomes </h2>
+        <input type="text" class="input" id="major_incomes_title" placeholder="Enter major income title"><br>
+        <input type="text" class="input" id="major_incomes_amount" placeholder="Enter major incomes amount"><br>
+        <input type="date" class="input" id="major_incomes_date" placeholder="Enter recurring incomes date due" required><br>
+        <button id="submit_button_major" class="signup_button1">Submit</button>
+
+        
+        <h2>Minor incomes</h2>
+        <input type="text" class="input" id="minor_incomes_title" placeholder="Enter minor income title"><br>
+        <input type="text" class="input" id="minor_incomes_amount" placeholder="Enter minor income amount"><br>
+        <input type="date" class="input" id="minor_incomes_date" placeholder="Enter recurring incomes date due" required><br>
+        <button id="submit_button_minor" class="signup_button1">Submit</button>
+    </center>
+</body>
+</html>

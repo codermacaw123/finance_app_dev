@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Process Text</title>
+    <script src="sketch.js"></script>  
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sigmar&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body class="body">
+  <img src="images/logo.png" alt="logo" class="logo" width="100" height="100" id="logo">
+  <ul>
+    <li class="homepagetopbuttons"> <a href="expenses.html"> Add expenses </a></li>
+ 
+    <li class="homepagetopbuttons"> <a href="incomes.html"> Add Incomes</a></li>
+
+
+    <li class="homepagetopbuttons"><a href="contactus.html">Contact Us</a></li>
+    <li class="homepagetopbuttons"> <a href="index.html" id="Logout_button"> Logout</a>  </li>
+     </ul>   
+    
+ 
+    
+  
+  <center>
+    
+    <h1>Hello!</h1>
+    <h3>Hope you are having a good day!</h3>
+
+    <h2>Your recurring expenses</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Amount</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="recurringExpenseList">
+        <!-- this is where all that we wrote below will get displayed -->
+      </tbody>
+    </table>
+
+    <h2>Your major expenses</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Amount</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="majorExpenseList">
+        <!-- this is where all that we wrote below will get displayed -->
+      </tbody>
+    </table>
+
+    <h2>Your recurring incomes</h2>
+    <h2>*note, half of your income should be going towards savings</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Amount</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="recurring_incomesList">
+        <!-- this is where all that we wrote below will get displayed -->
+      </tbody>
+    </table>
+
+  
+
+    <h2>Charts (scroll down)</h2>
+    <h2>This is what you have been spending on this month</h2>
+    <div>
+      <canvas id="myChart" style="width:100%; max-width:60%; padding:auto; font-family:DM-SerifText;"></canvas>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+      import { onAuthStateChanged, getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+      import { getDatabase, ref, set, update, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyDhfz_tIitJp9zRdACBb1rEGhQDUoYxNP4",
+        authDomain: "finance-app-16a81.firebaseapp.com",
+        databaseURL: "https://finance-app-16a81-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "finance-app-16a81",
+        storageBucket: "finance-app-16a81.firebasestorage.app",
+        messagingSenderId: "227865531925",
+        appId: "1:227865531925:web:7d607245b81fd76be1601c"
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth();
+      var monthly_expense = [0,0];
+      var monthly_expense_name = ['',''];
+      var monthly_income = 0;
+      const db = getDatabase(app);
+
+      document.getElementById("Logout_button").addEventListener("click", () => {
+        signOut(auth).then(() => {
+          alert("You have been logged out!");
+          window.location.href = "index.html";
+        }).catch((error) => {
+          alert("An error occurred while logging out!");
+          alert(error.message);
+        });
+      });
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const uid = user.uid;
+          console.log(uid);
+
+          const recurring_expenseRef = ref(db, 'users/' + uid + '/recurring_expenses');
+          const major_expenseRef = ref(db, 'users/' + uid + '/major_expenses');
+          const recurring_incomesRef = ref(db, 'users/' + uid + '/recurring_incomes');
+
+          onValue(recurring_expenseRef, (snapshot) => {
+            if (snapshot.exists()) {
+              const recurring_expenseData = snapshot.val();
+              recurring_displayExpenses(recurring_expenseData);
+              console.log(recurring_expenseData);
+            } else {
+              console.log("No recurring expense found!");
+            }
+          });
+
+          onValue(major_expenseRef, (snapshot) => {
+            if (snapshot.exists()) {
+              const major_expenseData = snapshot.val();
+              major_displayExpenses(major_expenseData);
+              console.log(major_expenseData);
+            } else {
+              console.log("No major expense found!");
+            }
+          });
+
+          onValue(recurring_incomesRef, (snapshot) => {
+            console.log("dsjhfcjdbf");
+            if (snapshot.exists()) {
+              const recurring_incomesData = snapshot.val();
+              recurring_displayIncomes(recurring_incomesData);
+              console.log(recurring_incomesData);
+            } else {
+              console.log("No recurring incomes found!");
+            }
+          });
+
+          // Initialize the chart after data is loaded
+          setTimeout(initializeChart, 1000); // Delay to ensure data is loaded
+        } else {
+          console.log("User is not logged in!");
+          alert("Please log in to view your expenses.");
+          window.location.href = "index.html";
+        }
+      });
+
+      function recurring_displayExpenses(recurring_expenseData) {
+        const expenseContainer = document.getElementById("recurringExpenseList");
+        expenseContainer.innerHTML = ""; // clear prev. data
+
+        for (const title in recurring_expenseData) {
+          const expense = recurring_expenseData[title];
+          const listItem = document.createElement("tr");
+
+          listItem.innerHTML = `
+            <td>${title} </td>
+            <td>${expense.amount} </td>
+            <td>${expense.date} </td>
+          `;
+          monthly_expense_name.push(title);
+          monthly_expense.push(expense.amount);
+          localStorage.setItem("monthly_expense_name", JSON.stringify(monthly_expense_name)); // Store as JSON string
+          localStorage.setItem("monthly_expense", JSON.stringify(monthly_expense)); // Store as JSON string
+
+          expenseContainer.appendChild(listItem);
+        }
+      }
+
+      function major_displayExpenses(major_expenseData) {
+        const expenseContainer = document.getElementById("majorExpenseList");
+        expenseContainer.innerHTML = ""; // clear prev. data
+
+        for (const title in major_expenseData) {
+          const expense = major_expenseData[title];
+          const listItem = document.createElement("tr");
+
+          listItem.innerHTML = `
+            <td>${title} </td>
+            <td>${expense.amount} </td>
+            <td>${expense.date} </td>
+          `;
+          monthly_expense_name.push(title);
+          monthly_expense.push(expense.amount);
+          localStorage.setItem("monthly_expense_name", JSON.stringify(monthly_expense_name)); // Store as JSON string
+          localStorage.setItem("monthly_expense", JSON.stringify(monthly_expense)); // Store as JSON string
+
+          expenseContainer.appendChild(listItem);
+        }
+      }
+
+      function recurring_displayIncomes(recurring_incomesData) {
+        const expenseContainer = document.getElementById("recurring_incomesList");
+        expenseContainer.innerHTML = ""; // clear prev. data
+
+        for (const title in recurring_incomesData) {
+          const expense = recurring_incomesData[title];
+          const listItem = document.createElement("tr");
+          monthly_income += expense.amount;
+
+          listItem.innerHTML = `
+            <td>${title} </td>
+            <td>${expense.amount} </td>
+            <td>${expense.date} </td>
+          `;
+
+          expenseContainer.appendChild(listItem);
+
+        }
+        console.log(localStorage.getItem("monthly_expense_name"));
+        console.log(localStorage.getItem("monthly_expense"));
+      }
+
+      function initializeChart() {
+        var xValues = JSON.parse(localStorage.getItem("monthly_expense_name")) || []; // Parse JSON string
+        var yValues = JSON.parse(localStorage.getItem("monthly_expense")) || [] // Parse JSON string
+
+        var barColors = ["#7DDF64", "#F7CAC", "#011936", "#415D43", "#7DDF64", "#3F7CAC", "#011936", "#415D43", "#7DDF64"];
+
+        new Chart("myChart", {
+          type: "pie",
+          data: {
+            labels: xValues,
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            legend: { display: false },
+            title: {
+              display: false,
+              text: ""
+            }
+          }
+        });
+      }
+    </script>
+  </center>
+</body>
+</html>

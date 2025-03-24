@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Process Text</title>
+    <script src="sketch.js"></script>  
+    <script src="config.js" type="module"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
+
+    <!-- Firebase links -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script>
+    <script>
+        var firebaseConfig = {
+        apiKey: "AIzaSyDhfz_tIitJp9zRdACBb1rEGhQDUoYxNP4",
+        authDomain: "finance-app-16a81.firebaseapp.com",
+        databaseURL: "https://finance-app-16a81-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "finance-app-16a81",
+        storageBucket: "finance-app-16a81.firebasestorage.app",
+        messagingSenderId: "227865531925",
+        appId: "1:227865531925:web:7d607245b81fd76be1601c"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+</head>
+<body class="body-main">
+    
+    <div class="homepagetop">
+        
+       <img src="images/logo.png" alt="logo" id="logo" width="100" height="100" class="logo">
+        <ul>
+        <li class="homepagetopbuttons"><a href="login.html">Sign in!</a></li>
+        <li class="homepagetopbuttons"><a href="signup.html">Sign up!</a></li>
+
+       <li class="homepagetopbuttons"><a href="contactus2.html">Contact Us</a></li>
+        </ul> 
+        <h1 class="introtext" id="headingtext">-Prosper-</h1>
+        <p class="introtext">"We budget because We care"</p>
+        <p id="belowintrotext">What are you waiting for?</p>
+
+        <li class="introtext" id="signup-button"><a href="signup.html" id="signup-button">Sign UP!</a></li>
+        <li class="introtext" id="signed_in_button"><a href="login.html">Sign in!</a></li>
+        
+        <p>
+            Surgepast: Your Path to Financial Freedom Starts Here
+
+        </p>
+        <p>
+            Tired of feeling lost in the sea of financial jargon? Wish you had a trusted guide to navigate the complexities of saving, and building wealth?
+        </p>
+            Surgepast is here to help. We're not just another financial management company. We're your personal financial partner, dedicated to empowering you to take control of your future.
+        </p> 
+        <h2>
+            What makes Surgepast different?
+        </h2>
+        <p>
+            Transparency and Clarity: We believe in open communication. We'll explain everything in plain English, so you understand exactly how your money is working for you.
+        </p> 
+            Technology-Driven Solutions: We leverage cutting-edge technology to provide seamless, user-friendly tools that simplify your financial management.
+         </p> 
+            Surgepast is more than just financial management. It's about building a brighter future for you and your loved ones.
+            
+            Ready to take the first step towards financial freedom? Let's start your journey to financial success together.</p>
+
+
+
+
+    </div>
+
+
+</body>
+</html>

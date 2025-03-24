@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Home Page</title>
+    <script src="sketch.js"></script>  
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sigmar&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body class="body">
+  <img src="images/logo.png" alt="logo" class="logo" width="100" height="100" id="logo">
+  <ul>
+
+   <li class="homepagetopbuttons"> <a href=""> Add expenses </a></li>
+
+   <li class="homepagetopbuttons"> <a href=""> Add Incomes</a></li>
+   <li class="homepagetopbuttons"> <a href=""> About You!</a> </li>
+   <li class="homepagetopbuttons"><a href="">Contact Us</a></li>
+   <li class="homepagetopbuttons"> <a href=""> Logout</a>  </li>
+    </ul>   
+    <script>
+
+
+    </script>
+    <center>
+        <h1 id="title_of_new_user">Hello !</h1>
+        <h3>Hope you are having a good day!</h3>
+        <h2>This is the homepage!, in the top left you can add expenses, and incomes, as well as seeing your expenses, or pehaps you could say hello to us or report an issue</h2>
+        <h2>This text would show how much money you spent or saved comapred to last month</h2>
+        <h2>Below usually has a chart of major expenses </h2>
+        <h2>Understood?</h2>
+        <h2>Thank you for using our app!</h2>
+        <li class="signup_button1"><a href="aboutyou.html">Go to the home page!</a></li>
+        <div>
+        <!-- <canvas id="myChart" style="width:100% maxwidth 70%; padding: auto; font-family: DM-SerifText;"></canvas>
+        
+             Firebase SDK CODE ADD BELOW -->
+  
+        <!-- <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script> -->
+    <script>
+          var advice_bad = ["You need to limit your spending!", "Try to spend less" ]
+          var advice_good = ["You are spending less and earning more!", "Why not treat yourself a little bit?"]
+          localStorage.setItem(monthly_expense_name,"");
+          localStorage.setItem(monthly_expense,"");
+          // Your web app's Firebase configuration
+            const firebaseConfig = {
+              apiKey: "AIzaSyDhfz_tIitJp9zRdACBb1rEGhQDUoYxNP4",
+              authDomain: "finance-app-16a81.firebaseapp.com",
+              databaseURL: "https://finance-app-16a81-default-rtdb.asia-southeast1.firebasedatabase.app",
+              projectId: "finance-app-16a81",
+              storageBucket: "finance-app-16a81.firebasestorage.app",
+              messagingSenderId: "227865531925",
+              appId: "1:227865531925:web:7d607245b81fd76be1601c"
+            };
+        
+            </script>
+
+       
+        </div> 
+</center>
+   
+</body>
+</html>

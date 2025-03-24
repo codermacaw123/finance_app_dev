@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Home Page</title>
+    <script src="sketch.js"></script>  
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sigmar&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body class="body">
+  <ul>
+
+   <li class="homepagetopbuttons"> <a href="expenses.html"> Add expenses </a></li>
+
+   <li class="homepagetopbuttons"> <a href="incomes.html"> Add Incomes</a></li>
+   <li class="homepagetopbuttons"> <a href="aboutyou.html"> About You!</a> </li>
+   <li class="homepagetopbuttons"><a href="contactus.html">Contact Us</a></li>
+   <li class="homepagetopbuttons"> <a href="index.html" id="Logout_button"> Logout</a>  </li>
+    </ul>   
+
+    <center>
+        <h1>Hello!</h1>
+        <h3>Hope you are having a good day!</h3>
+        <h2>This is your monthly spending!</h2>
+        <h2>These are your expenses!</h2>
+        <div>
+        <canvas id="myChart" style="width:50% maxwidth 50%; padding: 0; font-family: DM-SerifText;"></canvas>
+        
+            <!-- Firebase SDK CODE ADD BELOW -->
+  
+        <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-database.js"></script>
+        <script type="module">
+          var advice_bad = ["You need to limit your spending!", "Try to spend less" ]
+          var advice_good = ["You are spending less and earning more!", "Why not treat yourself a little bit?"]
+          
+
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+              apiKey: "AIzaSyDhfz_tIitJp9zRdACBb1rEGhQDUoYxNP4",
+              authDomain: "finance-app-16a81.firebaseapp.com",
+              databaseURL: "https://finance-app-16a81-default-rtdb.asia-southeast1.firebasedatabase.app",
+              projectId: "finance-app-16a81",
+              storageBucket: "finance-app-16a81.firebasestorage.app",
+              messagingSenderId: "227865531925",
+              appId: "1:227865531925:web:7d607245b81fd76be1601c"
+            };
+        
+            </script>
+
+        <script>
+            var networth
+            var xValues = JSON.parse(localStorage.getItem("monthly_expense_name")) || []; // Parse JSON string
+            var yValues = JSON.parse(localStorage.getItem("monthly_expense")) || [] // Parse JSON string
+
+            var barColors = ["#7DDF64","#F7CAC","#011936","#415D43", "#7DDF64","#3F7CAC","#011936","#415D43", "#7DDF64", "#7DDF64","#3F7CAC","#011936","#415D43","#7DDF64"];
+            
+            new Chart("myChart", {
+              type: "pie",
+              data: {
+                labels: xValues,
+                datasets: [{
+                  backgroundColor: barColors,
+                  data: yValues
+                }]
+              },
+              options: {
+                legend: {display: false},
+                title: {
+                  display: false,
+                  text: ""
+                }
+              }
+            });
+        </script>
+        </div>
+</center>
+   
+</body>
+</html>

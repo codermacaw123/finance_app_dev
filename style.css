@@ -1,0 +1,199 @@
+.input {
+    width: 400px;
+    height: 20px;
+}
+#submitbutton {
+
+    width: 400px;
+}
+.split{
+    height:100%;
+    width: 77%;
+    position: fixed;
+    z-index: 1;
+    padding-top: 0px;
+    top:0;
+    overflow-x: hidden;
+
+}
+.left{
+    left:0;
+    text-align: center ;
+    display: inline-block;
+    margin-top: 10%;
+    margin: auto;
+    margin-left: 10%;
+    font-size: 25px;
+    color: #F2EFEA;
+    background-color: #1F363D;
+}
+
+.right{
+
+    margin-left: 85%;
+    width: fit-content;
+    right: 0;
+    float: right;
+    position: relative;
+    margin-right: 0;
+    height: 100%;
+    border-color: #7DDF64;
+    border-width: 10px; 
+    margin-top: 1px;
+    margin-right: 1%;
+    text-align: center;
+}
+a:visited{
+
+    color: #F2EFEA;
+}
+.body{
+
+    background-color: #1F363D;
+    color: #F2EFEA;
+    font-family: "DM Serif Text", "Times New Roman", serif;
+}
+.rightbuttons{
+    width: fit-content;
+    font-size: large;
+
+    
+}
+
+.homepagetop{
+    padding: auto;
+    padding-left: 5%;
+    padding-right: 5%;
+
+
+}
+#homepagetopimage{
+    position: relative;
+    margin-right: 0;
+}
+.body-main{
+    font-family: "DM Serif Text", "Times New Roman", serif;
+    font-size: large;
+    background-color:#1F363D;
+    color: #F2EFEA;
+    margin-left: 5%;
+    margin-right: 5%;
+
+}
+.body-main2{
+    font-family: "DM Serif Text", "Times New Roman", serif;
+    font-size: large;
+    background-color:#1F363D;
+    color: #F2EFEA;
+    margin-left: 5%;
+    margin-right: 5%;
+
+}
+.homepagetopbuttons{
+    text-align: right;
+    list-style: none;
+    outline: #5DA271;
+    outline-width: 10px;
+
+
+}
+.logo{
+    float: left;
+
+    
+}
+#homepagetopbuttons{
+    text-align: left;
+    list-style: none;
+    outline: #5DA271;
+    outline-width: 10px;
+    top: 0;
+
+}
+.homepagetopbuttons :hover{
+    color: #5DA271;
+}
+.introtext{
+    text-align: center;
+    width: 50%;
+    padding-left: 25%;
+    padding-right: 25%;
+    color: #5DA271;
+
+}
+.introtext-login{
+    text-align: center;
+    width: 50%;
+    padding-left: 25%;
+    padding-right: 25%;
+    color: #5DA271;
+    margin-top: 20px;
+    border: 10px solid #5DA271;
+    border-radius: 10px;
+    background-color: #1F363D;
+    color: #1F363D;
+    font-size: medium;
+}
+.input {
+    width: 400px;
+    height: 30px;
+    padding: 5px;
+    font-size: medium;
+    border: 10px solid #5DA271;
+    border-radius: 10px;
+    background-color: #F2EFEA;
+    color: #1F363D;
+}
+.input:focus {
+    border-color: #1F363D;
+    outline: none;
+}
+
+#belowintrotext{
+    text-align: center;
+    width: 50%;
+    padding-left: 25%;
+    padding-right: 25%;
+
+
+
+}
+#headingtext{
+    font-size: 90px;
+    color: #5DA271;
+
+}
+.signup_button1{
+    display: block;
+    margin: 0 auto;
+    font-family: "DM Serif Text", "Times New Roman", serif;
+    font-size: large;
+    background-color: #1F363D;
+    color: #F2EFEA;
+    border: none;
+    width: 400px;
+    cursor: pointer;
+    padding-bottom: 20px;
+}
+.signup_button1:hover{
+    background-color: #1F363D;
+    color: #5DA271;
+}
+
+#Phone{
+
+    display: inline-block;
+}
+#Email{
+
+    display: inline-block;
+}
+#discord{
+
+    display: inline-block;
+}
+#google_login_button{
+
+    display: inline-block;
+}
+
